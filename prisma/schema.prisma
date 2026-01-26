@@ -1,0 +1,81 @@
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
+}
+
+enum Role {
+  ADMIN
+  CLIENT
+}
+
+enum ContentType {
+  VIDEO
+  PDF
+  LINK
+}
+
+enum ContentStatus {
+  PUBLISHED
+  DRAFT
+}
+
+model User {
+  id          String   @id @default(cuid())
+  username    String   @unique
+  password    String
+  firstName   String
+  lastName    String
+  companyName String?
+  role        Role     @default(CLIENT)
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  salesMetrics SalesMetric[]
+}
+
+model SalesMetric {
+  id              String   @id @default(cuid())
+  date            DateTime
+  totalSales      Float
+  orderCount      Int
+  newCustomers    Int
+  repeatCustomers Int
+  netProfit       Float
+  avgBasketValue  Float
+  userId          String
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@unique([userId, date])
+}
+
+model Category {
+  id        String   @id @default(cuid())
+  name      String
+  icon      String
+  slug      String   @unique
+  order     Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  contents  KnowledgeBaseContent[]
+}
+
+model KnowledgeBaseContent {
+  id          String        @id @default(cuid())
+  title       String
+  description String        @db.Text
+  type        ContentType
+  url         String?
+  fileUrl     String?
+  isPublic    Boolean       @default(false)
+  status      ContentStatus @default(DRAFT)
+  categoryId  String
+  category    Category      @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+}
