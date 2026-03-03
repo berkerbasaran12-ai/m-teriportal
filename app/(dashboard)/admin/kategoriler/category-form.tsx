@@ -74,7 +74,7 @@ export default function CategoryForm({ category, onClose, onSave }: CategoryForm
               <input
                 type="text"
                 value={formData?.name ?? ""}
-                onChange={(e) => setFormData({ ...(formData ?? {}), name: e.target.value })}
+                onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
                 className="w-full pl-11 pr-4 py-3 bg-[#2a2a2a] rounded-lg border border-white/10 focus:border-blue-500 focus:outline-none text-white"
                 placeholder="Kategori adı"
                 required
@@ -89,12 +89,11 @@ export default function CategoryForm({ category, onClose, onSave }: CategoryForm
                 <button
                   key={icon}
                   type="button"
-                  onClick={() => setFormData({ ...(formData ?? {}), icon })}
-                  className={`p-3 rounded-lg text-xl transition-colors ${
-                    formData?.icon === icon
+                  onClick={() => setFormData(prev => ({ ...prev, icon }))}
+                  className={`p-3 rounded-lg text-xl transition-colors ${formData?.icon === icon
                       ? "bg-blue-500/20 border border-blue-500"
                       : "bg-[#2a2a2a] hover:bg-[#3a3a3a] border border-white/10"
-                  }`}
+                    }`}
                 >
                   {icon}
                 </button>

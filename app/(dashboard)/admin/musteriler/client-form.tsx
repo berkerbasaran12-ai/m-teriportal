@@ -89,7 +89,7 @@ export default function ClientForm({ client, onClose, onSave }: ClientFormProps)
                 <input
                   type="text"
                   value={formData?.firstName ?? ""}
-                  onChange={(e) => setFormData({ ...(formData ?? {}), firstName: e.target.value })}
+                  onChange={(e) => setFormData(prev => ({ ...prev, firstName: e.target.value }))}
                   className="w-full pl-11 pr-4 py-3 bg-[#2a2a2a] rounded-lg border border-white/10 focus:border-blue-500 focus:outline-none text-white"
                   required
                 />
@@ -103,7 +103,7 @@ export default function ClientForm({ client, onClose, onSave }: ClientFormProps)
                 <input
                   type="text"
                   value={formData?.lastName ?? ""}
-                  onChange={(e) => setFormData({ ...(formData ?? {}), lastName: e.target.value })}
+                  onChange={(e) => setFormData(prev => ({ ...prev, lastName: e.target.value }))}
                   className="w-full pl-11 pr-4 py-3 bg-[#2a2a2a] rounded-lg border border-white/10 focus:border-blue-500 focus:outline-none text-white"
                   required
                 />
@@ -118,7 +118,7 @@ export default function ClientForm({ client, onClose, onSave }: ClientFormProps)
               <input
                 type="text"
                 value={formData?.companyName ?? ""}
-                onChange={(e) => setFormData({ ...(formData ?? {}), companyName: e.target.value })}
+                onChange={(e) => setFormData(prev => ({ ...prev, companyName: e.target.value }))}
                 className="w-full pl-11 pr-4 py-3 bg-[#2a2a2a] rounded-lg border border-white/10 focus:border-blue-500 focus:outline-none text-white"
               />
             </div>
@@ -132,7 +132,7 @@ export default function ClientForm({ client, onClose, onSave }: ClientFormProps)
                 <input
                   type="text"
                   value={formData?.username ?? ""}
-                  onChange={(e) => setFormData({ ...(formData ?? {}), username: e.target.value })}
+                  onChange={(e) => setFormData(prev => ({ ...prev, username: e.target.value }))}
                   className="w-full pl-11 pr-4 py-3 bg-[#2a2a2a] rounded-lg border border-white/10 focus:border-blue-500 focus:outline-none text-white"
                   required
                 />
@@ -149,7 +149,7 @@ export default function ClientForm({ client, onClose, onSave }: ClientFormProps)
               <input
                 type="password"
                 value={formData?.password ?? ""}
-                onChange={(e) => setFormData({ ...(formData ?? {}), password: e.target.value })}
+                onChange={(e) => setFormData(prev => ({ ...prev, password: e.target.value }))}
                 className="w-full pl-11 pr-4 py-3 bg-[#2a2a2a] rounded-lg border border-white/10 focus:border-blue-500 focus:outline-none text-white"
                 required={!client}
               />

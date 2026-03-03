@@ -87,7 +87,7 @@ export default function SalesForm({ metric, onClose, onSave }: SalesFormProps) {
               <input
                 type="date"
                 value={formData?.date ?? ""}
-                onChange={(e) => setFormData({ ...(formData ?? {}), date: e.target.value })}
+                onChange={(e) => setFormData(prev => ({ ...prev, date: e.target.value }))}
                 className="w-full pl-11 pr-4 py-3 bg-[#2a2a2a] rounded-lg border border-white/10 focus:border-blue-500 focus:outline-none text-white"
                 required
               />
@@ -103,7 +103,7 @@ export default function SalesForm({ metric, onClose, onSave }: SalesFormProps) {
                   type="number"
                   step="0.01"
                   value={formData?.totalSales ?? ""}
-                  onChange={(e) => setFormData({ ...(formData ?? {}), totalSales: e.target.value })}
+                  onChange={(e) => setFormData(prev => ({ ...prev, totalSales: e.target.value }))}
                   className="w-full pl-11 pr-4 py-3 bg-[#2a2a2a] rounded-lg border border-white/10 focus:border-blue-500 focus:outline-none text-white"
                   required
                 />
@@ -117,7 +117,7 @@ export default function SalesForm({ metric, onClose, onSave }: SalesFormProps) {
                 <input
                   type="number"
                   value={formData?.orderCount ?? ""}
-                  onChange={(e) => setFormData({ ...(formData ?? {}), orderCount: e.target.value })}
+                  onChange={(e) => setFormData(prev => ({ ...prev, orderCount: e.target.value }))}
                   className="w-full pl-11 pr-4 py-3 bg-[#2a2a2a] rounded-lg border border-white/10 focus:border-blue-500 focus:outline-none text-white"
                   required
                 />
@@ -133,7 +133,7 @@ export default function SalesForm({ metric, onClose, onSave }: SalesFormProps) {
                 <input
                   type="number"
                   value={formData?.newCustomers ?? ""}
-                  onChange={(e) => setFormData({ ...(formData ?? {}), newCustomers: e.target.value })}
+                  onChange={(e) => setFormData(prev => ({ ...prev, newCustomers: e.target.value }))}
                   className="w-full pl-11 pr-4 py-3 bg-[#2a2a2a] rounded-lg border border-white/10 focus:border-blue-500 focus:outline-none text-white"
                   required
                 />
@@ -147,7 +147,7 @@ export default function SalesForm({ metric, onClose, onSave }: SalesFormProps) {
                 <input
                   type="number"
                   value={formData?.repeatCustomers ?? ""}
-                  onChange={(e) => setFormData({ ...(formData ?? {}), repeatCustomers: e.target.value })}
+                  onChange={(e) => setFormData(prev => ({ ...prev, repeatCustomers: e.target.value }))}
                   className="w-full pl-11 pr-4 py-3 bg-[#2a2a2a] rounded-lg border border-white/10 focus:border-blue-500 focus:outline-none text-white"
                   required
                 />
@@ -163,7 +163,7 @@ export default function SalesForm({ metric, onClose, onSave }: SalesFormProps) {
                 type="number"
                 step="0.01"
                 value={formData?.netProfit ?? ""}
-                onChange={(e) => setFormData({ ...(formData ?? {}), netProfit: e.target.value })}
+                onChange={(e) => setFormData(prev => ({ ...prev, netProfit: e.target.value }))}
                 className="w-full pl-11 pr-4 py-3 bg-[#2a2a2a] rounded-lg border border-white/10 focus:border-blue-500 focus:outline-none text-white"
                 required
               />

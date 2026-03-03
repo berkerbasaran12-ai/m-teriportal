@@ -46,11 +46,11 @@ export default function ContentForm({ content, categories, onClose, onSave }: Co
       if (!presignedRes?.ok) throw new Error(presignedData?.error);
 
       const { uploadUrl, cloud_storage_path } = presignedData ?? {};
-      
+
       const uploadRes = await fetch(uploadUrl, {
         method: "PUT",
         body: file,
-        headers: { 
+        headers: {
           "Content-Type": file.type,
           "Content-Disposition": "attachment"
         }
@@ -58,7 +58,7 @@ export default function ContentForm({ content, categories, onClose, onSave }: Co
 
       if (!uploadRes?.ok) throw new Error("Dosya yüklenemedi");
 
-      setFormData({ ...(formData ?? {}), fileUrl: cloud_storage_path, isPublic: true });
+      setFormData(prev => ({ ...prev, fileUrl: cloud_storage_path, isPublic: true }));
     } catch (err: any) {
       setError(err?.message ?? "Dosya yüklenirken hata oluştu");
     } finally {
@@ -118,7 +118,7 @@ export default function ContentForm({ content, categories, onClose, onSave }: Co
             <input
               type="text"
               value={formData?.title ?? ""}
-              onChange={(e) => setFormData({ ...(formData ?? {}), title: e.target.value })}
+              onChange={(e) => setFormData(prev => ({ ...prev, title: e.target.value }))}
               className="w-full px-4 py-3 bg-[#2a2a2a] rounded-lg border border-white/10 focus:border-blue-500 focus:outline-none text-white"
               required
             />
@@ -129,7 +129,7 @@ export default function ContentForm({ content, categories, onClose, onSave }: Co
               <label className="text-sm text-gray-400">Kategori</label>
               <select
                 value={formData?.categoryId ?? ""}
-                onChange={(e) => setFormData({ ...(formData ?? {}), categoryId: e.target.value })}
+                onChange={(e) => setFormData(prev => ({ ...prev, categoryId: e.target.value }))}
                 className="w-full px-4 py-3 bg-[#2a2a2a] rounded-lg border border-white/10 focus:border-blue-500 focus:outline-none text-white"
                 required
               >
@@ -146,12 +146,11 @@ export default function ContentForm({ content, categories, onClose, onSave }: Co
                   <button
                     key={type}
                     type="button"
-                    onClick={() => setFormData({ ...(formData ?? {}), type: type as any })}
-                    className={`flex-1 flex items-center justify-center gap-2 px-3 py-3 rounded-lg transition-colors ${
-                      formData?.type === type
-                        ? "bg-blue-500/20 border border-blue-500 text-blue-400"
-                        : "bg-[#2a2a2a] border border-white/10 text-gray-400 hover:bg-[#3a3a3a]"
-                    }`}
+                    onClick={() => setFormData(prev => ({ ...prev, type: type as any }))}
+                    className={`flex-1 flex items-center justify-center gap-2 px-3 py-3 rounded-lg transition-colors ${formData?.type === type
+                      ? "bg-blue-500/20 border border-blue-500 text-blue-400"
+                      : "bg-[#2a2a2a] border border-white/10 text-gray-400 hover:bg-[#3a3a3a]"
+                      }`}
                   >
                     {type === "VIDEO" && <Video className="w-4 h-4" />}
                     {type === "PDF" && <FileText className="w-4 h-4" />}
@@ -209,10 +208,10 @@ export default function ContentForm({ content, categories, onClose, onSave }: Co
               <input
                 type="url"
                 value={formData?.url ?? ""}
-                onChange={(e) => setFormData({ ...(formData ?? {}), url: e.target.value })}
+                onChange={(e) => setFormData(prev => ({ ...prev, url: e.target.value }))}
                 className="w-full px-4 py-3 bg-[#2a2a2a] rounded-lg border border-white/10 focus:border-blue-500 focus:outline-none text-white"
                 placeholder={formData?.type === "VIDEO" ? "https://youtube.com/watch?v=..." : "https://..."}
-                required={formData?.type !== "PDF"}
+                required
               />
             </div>
           )}
@@ -221,7 +220,7 @@ export default function ContentForm({ content, categories, onClose, onSave }: Co
             <label className="text-sm text-gray-400">Açıklama</label>
             <RichTextEditor
               content={formData?.description ?? ""}
-              onChange={(value) => setFormData({ ...(formData ?? {}), description: value })}
+              onChange={(value) => setFormData(prev => ({ ...prev, description: value }))}
             />
           </div>
 
@@ -231,7 +230,7 @@ export default function ContentForm({ content, categories, onClose, onSave }: Co
                 type="checkbox"
                 id="status"
                 checked={formData?.status === "PUBLISHED"}
-                onChange={(e) => setFormData({ ...(formData ?? {}), status: e.target.checked ? "PUBLISHED" : "DRAFT" })}
+                onChange={(e) => setFormData(prev => ({ ...prev, status: e.target.checked ? "PUBLISHED" : "DRAFT" }))}
                 className="w-4 h-4 rounded bg-[#2a2a2a] border-white/10 text-blue-500 focus:ring-blue-500"
               />
               <label htmlFor="status" className="text-sm text-gray-400">Yayınla</label>

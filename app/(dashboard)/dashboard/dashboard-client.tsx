@@ -3,8 +3,9 @@
 import { useState, useEffect } from "react";
 import { Plus, TrendingUp, ShoppingCart, Users, DollarSign, Filter } from "lucide-react";
 import { SalesMetricData } from "@/lib/types";
+import dynamic from "next/dynamic";
 import SalesForm from "./sales-form";
-import SalesCharts from "./sales-charts";
+const SalesCharts = dynamic(() => import("./sales-charts"), { ssr: false });
 import SalesTable from "./sales-table";
 
 interface DashboardClientProps {
@@ -102,9 +103,9 @@ export default function DashboardClient({ userId }: DashboardClientProps) {
         {summaryCards?.map?.((card, i) => {
           const Icon = card?.icon;
           const colorClass = card?.color === 'blue' ? 'bg-blue-500/10 text-blue-500' :
-                            card?.color === 'green' ? 'bg-green-500/10 text-green-500' :
-                            card?.color === 'cyan' ? 'bg-cyan-500/10 text-cyan-500' :
-                            'bg-orange-500/10 text-orange-500';
+            card?.color === 'green' ? 'bg-green-500/10 text-green-500' :
+              card?.color === 'cyan' ? 'bg-cyan-500/10 text-cyan-500' :
+                'bg-orange-500/10 text-orange-500';
           return (
             <div key={i} className="glass-card rounded-xl p-4">
               <div className="flex items-center gap-3">
@@ -123,11 +124,11 @@ export default function DashboardClient({ userId }: DashboardClientProps) {
 
       <SalesCharts metrics={metrics ?? []} />
 
-      <SalesTable 
-        metrics={metrics ?? []} 
-        loading={loading} 
-        onEdit={handleEdit} 
-        onDelete={handleDelete} 
+      <SalesTable
+        metrics={metrics ?? []}
+        loading={loading}
+        onEdit={handleEdit}
+        onDelete={handleDelete}
       />
 
       {showForm && (
